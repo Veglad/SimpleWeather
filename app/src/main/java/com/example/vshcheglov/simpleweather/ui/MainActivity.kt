@@ -1,7 +1,8 @@
-package com.example.vshcheglov.simpleweather
+package com.example.vshcheglov.simpleweather.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.vshcheglov.simpleweather.R
 
 class MainActivity : AppCompatActivity() {
 
