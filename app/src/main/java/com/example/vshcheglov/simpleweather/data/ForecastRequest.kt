@@ -1,9 +1,9 @@
-package com.example.vshcheglov.simpleweather
+package com.example.vshcheglov.simpleweather.data
 
 import android.util.Log
 import java.net.URL
 
-class WeatherRequest(val url: String) {
+class ForecastRequest(val url: String) {
 
     fun run(){
         val forecastJsonStr = URL(url).readText()
