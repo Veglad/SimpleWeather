@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import com.example.vshcheglov.simpleweather.R
 import com.example.vshcheglov.simpleweather.domain.commands.RequestForecastCommand
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(result)
+                forecastList.adapter = ForecastListAdapter(result){
+                    forecast ->  toast(forecast.date)
+                }
             }
         }
     }
