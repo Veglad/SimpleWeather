@@ -4,11 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.vshcheglov.simpleweather.R
 import com.example.vshcheglov.simpleweather.domain.model.Forecast
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_forecast.view.*
+import org.jetbrains.anko.find
 
 class ForecastListAdapter(private val weekForecast: ForecastList,
                           private val itemClick: (Forecast) -> Unit) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
@@ -29,14 +32,20 @@ class ForecastListAdapter(private val weekForecast: ForecastList,
     class ViewHolder(val view: View, private val itemClick: (Forecast) -> Unit) :
         RecyclerView.ViewHolder(view) {
 
+        private val iconView = view.find<ImageView>(R.id.itemForecastIcon)
+        private val dateView = view.find<TextView>(R.id.dateTextView)
+        private val descriptionView = view.find<TextView>(R.id.descriptionTextView)
+        private val maxTemperatureView = view.find<TextView>(R.id.maxTemperatureTextView)
+        private val minTemperatureView = view.find<TextView>(R.id.minTemperatureTextView)
+
 
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
-                Picasso.get().load(iconUrl).into(view.itemForecastIcon)
-                view.dateTextView.text = date
-                view.descriptionTextView.text = description
-                view.maxTemperatureTextView.text = high.toString()
-                view.minTemperatureTextView.text = low.toString()
+                Picasso.get().load(iconUrl).into(iconView)
+                dateView.text = date
+                descriptionView.text = description
+                maxTemperatureView.text = high.toString()
+                minTemperatureView.text = low.toString()
                 itemView.setOnClickListener{itemClick(forecast)}
             }
         }
