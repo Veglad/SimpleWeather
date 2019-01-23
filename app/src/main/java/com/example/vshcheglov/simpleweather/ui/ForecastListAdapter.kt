@@ -10,6 +10,7 @@ import com.example.vshcheglov.simpleweather.R
 import com.example.vshcheglov.simpleweather.domain.model.Forecast
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_forecast.view.*
 import org.jetbrains.anko.find
 
 class ForecastListAdapter(private val weekForecast: ForecastList,
@@ -28,22 +29,17 @@ class ForecastListAdapter(private val weekForecast: ForecastList,
 
     override fun getItemCount(): Int = weekForecast.size
 
-    class ViewHolder(view: View, private val itemClick: (Forecast) -> Unit) :
+    class ViewHolder(val view: View, private val itemClick: (Forecast) -> Unit) :
         RecyclerView.ViewHolder(view) {
 
-        private val iconView = view.find<ImageView>(R.id.itemForecastIcon)
-        private val dateView = view.find<TextView>(R.id.itemForecastDateTextView)
-        private val descriptionView = view.find<TextView>(R.id.descriptionTextView)
-        private val maxTemperatureView = view.find<TextView>(R.id.itemForecastMaxTemperatureTextView)
-        private val minTemperatureView = view.find<TextView>(R.id.itemForecastMinTemperatureTextView)
 
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
-                Picasso.get().load(iconUrl).into(iconView)
-                dateView.text = date
-                descriptionView.text = description
-                maxTemperatureView.text = high.toString()
-                minTemperatureView.text = low.toString()
+                Picasso.get().load(iconUrl).into(view.itemForecastIcon)
+                view.itemForecastDateTextView.text = date
+                view.descriptionTextView.text = description
+                view.itemForecastMaxTemperatureTextView.text = high.toString()
+                view.itemForecastMinTemperatureTextView.text = low.toString()
                 itemView.setOnClickListener{itemClick(forecast)}
             }
         }

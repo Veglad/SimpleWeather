@@ -11,7 +11,7 @@ private const val COMPLETE_URL = "$URL&APPID=$APP_ID&q="
 
 class ForecastRequest(val zipCode: String) {
 
-    fun execute(): ForecastResult{
+    fun execute(): ForecastResult {
         val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
         return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
     }
