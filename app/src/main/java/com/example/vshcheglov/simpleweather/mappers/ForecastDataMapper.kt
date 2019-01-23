@@ -15,8 +15,8 @@ class ForecastDataMapper {
 
     private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
         return list.mapIndexed { i, forecast ->
-            val dt = Calendar.getInstance().timeInMillis + TimeUnit.DAYS.toMillis(i.toLong())
-            convertForecastItemToDomain(forecast.copy(dt = dt))
+            val dateInMillis = Calendar.getInstance().timeInMillis + TimeUnit.DAYS.toMillis(i.toLong())
+            convertForecastItemToDomain(forecast.copy(dt = dateInMillis))
         }
     }
 
@@ -25,11 +25,10 @@ class ForecastDataMapper {
             forecast.temp.max.toInt(), forecast.temp.min.toInt(), generateIconUrl(forecast.weather[0].icon))
     }
 
-    private fun generateIconUrl(iconCode: String): String
-            = "http://openweathermap.org/img/w/$iconCode.png"
+    private fun generateIconUrl(iconCode: String) = "http://openweathermap.org/img/w/$iconCode.png"
 
     private fun convertDate(date: Long): String {
-        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        return df.format(date)
+        val dateFormatMedium = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+        return dateFormatMedium.format(date)
     }
 }

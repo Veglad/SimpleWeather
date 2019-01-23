@@ -33,7 +33,7 @@ class ForecastListAdapter(private val weekForecast: ForecastList,
 
         private val iconView = view.find<ImageView>(R.id.itemForecastIcon)
         private val dateView = view.find<TextView>(R.id.itemForecastDateTextView)
-        private val descriptionView = view.find<TextView>(R.id.itemForecastDescriptionTextView)
+        private val descriptionView = view.find<TextView>(R.id.descriptionTextView)
         private val maxTemperatureView = view.find<TextView>(R.id.itemForecastMaxTemperatureTextView)
         private val minTemperatureView = view.find<TextView>(R.id.itemForecastMinTemperatureTextView)
 
