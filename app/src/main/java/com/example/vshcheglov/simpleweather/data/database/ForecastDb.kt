@@ -1,5 +1,6 @@
 package com.example.vshcheglov.simpleweather.data.database
 
+import com.example.vshcheglov.simpleweather.domain.datasource.ForecastDataSource
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
 import com.example.vshcheglov.simpleweather.extensions.clear
 import com.example.vshcheglov.simpleweather.extensions.parseList
@@ -9,11 +10,11 @@ import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import java.util.HashMap
 
-class ForecastDbQueries(
+class ForecastDb(
     val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
-    val dataMapper: DbDataMapper = DbDataMapper()) {
+    val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
 
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? " +
                 "AND ${DayForecastTable.DATE} >= ?"
 

@@ -6,7 +6,7 @@ import com.example.vshcheglov.simpleweather.domain.model.ForecastList
 open class DbDataMapper {
     open fun convertForecastToDomain(forecast: CityForecast) = with(forecast) {
         val forecastList = dailyForecast.map { convertDayForecastToDomain(it) }
-        ForecastList(_id, city, coutnry, forecastList)
+        ForecastList(_id, city, country, forecastList)
     }
 
     private fun convertDayForecastToDomain(dayForecast: DayForecast) = with(dayForecast) {
