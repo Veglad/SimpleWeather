@@ -2,6 +2,7 @@ package com.example.vshcheglov.simpleweather.domain.datasource
 
 import com.example.vshcheglov.simpleweather.data.database.ForecastDb
 import com.example.vshcheglov.simpleweather.data.server.ForecastServer
+import com.example.vshcheglov.simpleweather.domain.model.Forecast
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
 import com.example.vshcheglov.simpleweather.extensions.firstResult
 
@@ -15,10 +16,17 @@ class ForecastProvider(private val sources: List<ForecastDataSource> = ForecastP
     fun requestByZipCode(zipCode: Long, days: Int): ForecastList =
         sources.firstResult { requestSource(it, days, zipCode) }
 
+    fun requestForecast(id: Long): Forecast = sources.firstResult {
+        it.requestDayForecast(id)
+    }
+
     private fun requestSource(source: ForecastDataSource, days: Int, zipCode: Long): ForecastList? {
         val res = source.requestForecastByZipCode(zipCode, todayTimeSpan())
         return if (res != null && res.size >= days) res else null
     }
+
+
+    //private fun <T : Any> requestToSources(func: (ForecastDataSource) -> T?) = sources.firstResult{func(it)}
 
     private fun todayTimeSpan() = System.currentTimeMillis()/ DAY_IN_MILLIS * DAY_IN_MILLIS
 

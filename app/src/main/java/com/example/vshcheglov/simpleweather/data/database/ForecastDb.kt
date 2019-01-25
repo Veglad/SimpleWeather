@@ -1,18 +1,16 @@
 package com.example.vshcheglov.simpleweather.data.database
 
 import com.example.vshcheglov.simpleweather.domain.datasource.ForecastDataSource
+import com.example.vshcheglov.simpleweather.domain.model.Forecast
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
-import com.example.vshcheglov.simpleweather.extensions.clear
-import com.example.vshcheglov.simpleweather.extensions.parseList
-import com.example.vshcheglov.simpleweather.extensions.parseOpt
-import com.example.vshcheglov.simpleweather.extensions.toVarargArray
+import com.example.vshcheglov.simpleweather.extensions.*
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import java.util.HashMap
 
 class ForecastDb(
-    val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
-    val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
+    private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
+    private val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
 
     override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? " +
@@ -39,4 +37,13 @@ class ForecastDb(
             dailyForecast.forEach { insert(DayForecastTable.NAME, *it.map.toVarargArray()) }
         }
     }
+
+    override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper.use {
+        val dayForecast = select(DayForecastTable.NAME)
+            .whereSimple("${DayForecastTable.ID} = ?", id.toString())
+            .parseOpt {DayForecast(HashMap(it))}
+
+        dayForecast?.let { dataMapper.convertDayForecastToDomain(dayForecast) }
+    }
+
 }
