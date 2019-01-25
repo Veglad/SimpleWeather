@@ -12,6 +12,8 @@ import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
 
+    val TEST_CITY_ZIPCODE = 94043L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,9 +21,9 @@ class MainActivity : AppCompatActivity() {
         forecastListView.layoutManager = LinearLayoutManager(this)
 
         doAsync {
-            val result = RequestForecastCommand(94043).execute()
+            val result = RequestForecastCommand(TEST_CITY_ZIPCODE).execute()
             uiThread {
-                val adapter = ForecastListAdapter(result, { toast(it.description) })
+                val adapter = ForecastListAdapter(result){ toast(it.description) }
                 forecastListView.adapter = adapter
             }
         }
