@@ -4,13 +4,11 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.example.vshcheglov.simpleweather.DetailAtivity
+import com.example.vshcheglov.simpleweather.DetailActivity
 import com.example.vshcheglov.simpleweather.R
 import com.example.vshcheglov.simpleweather.domain.commands.RequestForecastCommand
-import com.example.vshcheglov.simpleweather.extensions.toDateString
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -29,9 +27,9 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand(TEST_CITY_ZIPCODE).execute()
             uiThread {
                 forecastListView.adapter = ForecastListAdapter(result){
-                    val intent = Intent(this@MainActivity, DetailAtivity::class.java)
-                    intent.putExtra(DetailAtivity.CITY_NAME, result.city)
-                    intent.putExtra(DetailAtivity.ID, it.id)
+                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.CITY_NAME, result.city)
+                    intent.putExtra(DetailActivity.ID, it.id)
                     startActivity(intent)
                 }
             }
