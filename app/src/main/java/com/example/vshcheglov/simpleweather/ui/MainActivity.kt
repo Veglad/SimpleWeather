@@ -27,9 +27,11 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand(TEST_CITY_ZIPCODE).execute()
             uiThread {
                 forecastListView.adapter = ForecastListAdapter(result) {
-                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.CITY_NAME, result.city)
-                    intent.putExtra(DetailActivity.ID, it.id)
+                    val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
+                        putExtra(DetailActivity.CITY_NAME, result.city)
+                        putExtra(DetailActivity.ID, it.id)
+                    }
+
                     startActivity(intent)
                 }
             }
