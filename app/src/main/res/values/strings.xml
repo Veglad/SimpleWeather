@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">SimpleWeather</string>
-    <string name="celsius">°</string>
+    <string name="celsius_mark">°</string>
 </resources>

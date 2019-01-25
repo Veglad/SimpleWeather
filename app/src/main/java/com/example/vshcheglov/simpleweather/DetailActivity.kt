@@ -1,6 +1,5 @@
 package com.example.vshcheglov.simpleweather
 
-import com.example.vshcheglov.simpleweather.R
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.vshcheglov.simpleweather.domain.commands.RequestDayForecastCommand
@@ -24,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0.0f
 
-        detailCity.text = intent.getStringExtra(CITY_NAME)
+        detailCityTextView.text = intent.getStringExtra(CITY_NAME)
 
         doAsync {
             val forecastId = intent.getLongExtra(ID, -1)
@@ -33,11 +32,11 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindForecast(forecast: Forecast) {
-        Picasso.get().load(forecast.iconUrl).into(detailImage)
-        detailDate.text = forecast.date.toDateString()
-        detailDescription.text = forecast.description
-        detailMaxTemperature.text = forecast.high.toString()
-        detailMinTemperature.text = forecast.low.toString()
+    private fun bindForecast(forecast: Forecast) = with(forecast) {
+        Picasso.get().load(iconUrl).into(detailImage)
+        detailDateTextView.text = date.toDateString()
+        detailDescriptionTextView.text = description
+        detailMaxTemperatureTextView.text = high.toString()
+        detailMinTemperatureTextView.text = low.toString()
     }
 }

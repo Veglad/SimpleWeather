@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val result = RequestForecastCommand(TEST_CITY_ZIPCODE).execute()
             uiThread {
-                forecastListView.adapter = ForecastListAdapter(result){
+                forecastListView.adapter = ForecastListAdapter(result) {
                     val intent = Intent(this@MainActivity, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.CITY_NAME, result.city)
                     intent.putExtra(DetailActivity.ID, it.id)

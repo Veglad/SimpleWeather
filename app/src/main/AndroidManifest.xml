@@ -20,10 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailActivity"
-                  android:parentActivityName=".ui.MainActivity" >
+                  android:parentActivityName=".ui.MainActivity"
+                  android:screenOrientation="portrait">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.vshcheglov.simpleweather.ui.MainActivity"/>
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.example.vshcheglov.simpleweather.ui.MainActivity"/>
         </activity>
     </application>
 
