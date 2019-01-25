@@ -1,14 +1,18 @@
 package com.example.vshcheglov.simpleweather.domain.commands
 
-import com.example.vshcheglov.simpleweather.data.ForecastRequest
+import com.example.vshcheglov.simpleweather.domain.datasource.ForecastProvider
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
-import com.example.vshcheglov.simpleweather.mappers.ForecastDataMapper
 
-class RequestForecastCommand(val zipCode: String) : Command<ForecastList> {
+class RequestForecastCommand(val zipCode: Long,
+                             val forecastProvider: ForecastProvider = ForecastProvider()
+) :
+    Command<ForecastList> {
+
+    companion object {
+        val DAYS = 7
+    }
+
     override fun execute(): ForecastList {
-        val forecastRequest = ForecastRequest(zipCode)
-        return  ForecastDataMapper().convertFromDataModel(
-            forecastRequest.execute()
-        )
+        return forecastProvider.requestByZipCode(zipCode, DAYS)
     }
 }

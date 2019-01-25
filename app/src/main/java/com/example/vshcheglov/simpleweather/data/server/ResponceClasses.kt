@@ -1,4 +1,4 @@
-package com.example.vshcheglov.simpleweather.data
+package com.example.vshcheglov.simpleweather.data.server
 
 data class ForecastResult(val city: City,
                           val list: List<Forecast>)

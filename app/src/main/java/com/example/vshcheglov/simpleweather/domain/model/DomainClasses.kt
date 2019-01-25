@@ -1,6 +1,7 @@
 package com.example.vshcheglov.simpleweather.domain.model
 
-data class ForecastList(val city: String,
+data class ForecastList(val id: Long,
+                        val city: String,
                         val country: String,
                         val dailyForecast: List<Forecast>) {
     val size: Int
@@ -9,7 +10,8 @@ data class ForecastList(val city: String,
     operator fun get(position: Int): Forecast = dailyForecast[position]
 }
 
-data class Forecast(val date: String,
+data class Forecast(val id: Long,
+                    val date: Long,
                     val description: String,
                     val high: Int,
                     val low: Int,

@@ -10,8 +10,9 @@ import com.example.vshcheglov.simpleweather.R
 import com.example.vshcheglov.simpleweather.domain.model.Forecast
 import com.example.vshcheglov.simpleweather.domain.model.ForecastList
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_forecast.view.*
 import org.jetbrains.anko.find
+import java.text.DateFormat
+import java.util.*
 
 class ForecastListAdapter(private val weekForecast: ForecastList,
                           private val itemClick: (Forecast) -> Unit) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
@@ -42,12 +43,17 @@ class ForecastListAdapter(private val weekForecast: ForecastList,
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 Picasso.get().load(iconUrl).into(iconView)
-                dateView.text = date
+                dateView.text = covertDate(date)
                 descriptionView.text = description
                 maxTemperatureView.text = high.toString()
                 minTemperatureView.text = low.toString()
                 itemView.setOnClickListener{itemClick(forecast)}
             }
+        }
+
+        private fun covertDate(date: Long): String {
+            val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+            return dateFormat.format(date)
         }
     }
 }
