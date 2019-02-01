@@ -21,7 +21,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_ativity)
 
-        supportActionBar?.elevation = 0.0f
+        initToolbar()
 
         detailCityTextView.text = intent.getStringExtra(CITY_NAME)
 
@@ -30,6 +30,13 @@ class DetailActivity : AppCompatActivity() {
             val result = RequestDayForecastCommand(forecastId).execute()
             uiThread { bindForecast(result) }
         }
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(detailToolbar)
+        supportActionBar?.elevation = 0.0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun bindForecast(forecast: Forecast) = with(forecast) {
