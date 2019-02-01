@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SimpleWeather</string>
     <string name="celsius_mark">°</string>
+    
+    <string name="city_zip_code">City zip code</string>
+    <string name="settings">Settings</string>
 </resources>
